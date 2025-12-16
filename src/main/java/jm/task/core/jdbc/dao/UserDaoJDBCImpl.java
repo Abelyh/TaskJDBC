@@ -28,7 +28,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        // не должно выбрасывать исключение, если таблица не существует
         String sql = "DROP TABLE IF EXISTS users";
         try (Connection connection = Util.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
@@ -38,7 +37,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        //После каждого добавления должен быть вывод в консоль (User с именем — name добавлен в базу данных)
         String sql = "INSERT INTO users (name, lastName, age) VALUES (?, ?, ?)";
         try (Connection connection = Util.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, name);
@@ -80,7 +78,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
-        String sql = "TRUNCATE FROM users";
+        String sql = "TRUNCATE TABLE users";
         try (Connection connection = Util.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
         } catch (SQLException e) {
