@@ -1,27 +1,29 @@
 package jm.task.core.jdbc;
 
 
+import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
         // реализуйте алгоритм здесь
 
-        UserServiceImpl userService = new UserServiceImpl();
+        UserService userService = new UserServiceImpl();
 
         userService.createUsersTable();
 
-        userService.saveUser("Ivan", "Ivanov", (byte) 20);
-        System.out.println("User с именем — Ivan добавлен в базу данных");
+        User[] users = {new User("Ivan", "Ivanov", (byte) 20)
+                , new User("Sergei", "Petrov", (byte) 25)
+                , new User("Vladimir", "Sidorov", (byte) 30)
+                , new User("Victor", "Smirnov", (byte) 35)};
 
-        userService.saveUser("Sergei", "Petrov", (byte) 25);
-        System.out.println("User с именем — Sergei добавлен в базу данных");
+        for (User u : users) {
+            userService.saveUser(u.getName(), u.getLastName(), u.getAge());
+            System.out.printf("User с именем — %s добавлен в базу данных %n", u.getName());
+        }
 
-        userService.saveUser("Vladimir", "Sidorov", (byte) 30);
-        System.out.println("User с именем — Vladimir добавлен в базу данных");
-
-        userService.saveUser("Victor", "Smirnov", (byte) 35);
-        System.out.println("User с именем — Victor добавлен в базу данных");
+        userService.removeUserById(1);
 
         System.out.println(userService.getAllUsers());
 
