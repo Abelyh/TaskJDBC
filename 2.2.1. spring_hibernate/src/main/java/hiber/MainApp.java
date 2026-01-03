@@ -31,10 +31,8 @@ public class MainApp {
             System.out.println("Email = " + user.getEmail());
             System.out.println();
         }
-        List<User> list = userService.getUser(car);
-        for (User user : list) {
-            System.out.printf("%s имеет автомобиль %s серии %d \n", user.getFirstName(), user.getCar().getModel(), user.getCar().getSeries());
-        }
+        User user = userService.getUserByCar(car);
+        System.out.printf("%s имеет автомобиль %s серии %d \n", user.getFirstName(), user.getCar().getModel(), user.getCar().getSeries());
 
         context.close();
     }
